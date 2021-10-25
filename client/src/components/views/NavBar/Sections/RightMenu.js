@@ -30,12 +30,20 @@ function RightMenu(props) {
                 </Menu.Item>
             </Menu>
         );
-    } else {
+    } else if(user.userData && user.userData.isAdmin){
         return (
             <Menu mode={props.mode}>
                 <Menu.Item key="upload">
                     <a href="/product/upload">Upload</a>
                 </Menu.Item>
+                <Menu.Item key="logout">
+                    <a onClick={logoutHandler}>로그아웃</a>
+                </Menu.Item>
+            </Menu>
+        );
+    } else {
+        return (
+            <Menu mode={props.mode}>
                 <Menu.Item key="logout">
                     <a onClick={logoutHandler}>로그아웃</a>
                 </Menu.Item>
