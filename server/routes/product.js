@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.post("/monthlyBooks", (req, res) => {
+router.get("/monthlyBooks", (req, res) => {
     // monthlyBooks collection에 들어있는 모든 상품정보를 가져오기
 
     let limit = req.body.limit ? parseInt(req.body.limit) : 20;

@@ -15,9 +15,11 @@ router.get("/auth", auth, (req, res) => {
         isAuth: true,
         email: req.user.email,
         name: req.user.name,
-        lastname: req.user.lastname,
         role: req.user.role,
-        image: req.user.image,
+        isSubscribe: req.user.subscription,
+        selectedBook: req.user.selectedBook,
+        selectedBookHistory: req.user.selectedBookHistory,
+        paidHistory: req.user.paidHistory
     });
 });
 
@@ -66,6 +68,25 @@ router.get("/logout", auth, (req, res) => {
             success: true
         });
     });
+});
+
+router.get("/book-select", auth, (req, res) => {
+    User.findOne({ _id: req.user._id }, (err, user) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true,
+            selected: user.selectedBook
+        });
+    })
+});
+
+router.post("/book-select", auth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { selectedBook: req.body.selected }, (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });
+    })
 });
 
 module.exports = router;

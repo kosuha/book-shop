@@ -23,16 +23,19 @@ const userSchema = mongoose.Schema({
         default: 0,
     },
     subscription: {
-        type: Boolean
+        type: Boolean,
+        default: false,
     },
     paidHistory: {
         type: Array
     },
     selectedBook: {
-        type: Array
+        type: Array,
+        default: []
     },
     selectedBookHistory: {
-        type: Array
+        type: Array,
+        default: [[]]
     },
     token: {
         type: String,

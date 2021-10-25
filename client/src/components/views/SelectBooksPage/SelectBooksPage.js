@@ -5,21 +5,22 @@ import Meta from "antd/lib/card/Meta";
 import { DivCardContainer, DivCard } from "./style";
 
 function SelectBooksPage(props) {
-    const [monthlyBooks, setMonthlyBooks] = useState([]);
-    const [SelectDisable, setSelectDisable] = useState(false);
-
     const user = props.user;
     const history = props.history;
 
+    const [MonthlyBooks, setMonthlyBooks] = useState([]);
+    const [SelectedBookId, setSelectedBookId] = useState([]);
+    const [SelectDisable, setSelectDisable] = useState(false);
+
     const selectChangeHandler = (value, props) => {
         if (!user.userData.isAuth) {
-            alert("로그인이 필요합니다!")
-            return history.push("/login")
-        };
-        if (user.userData.isAuth && !user.userData.subscription) {
-            alert("구독 신청이 필요합니다!")
-            return history.push("/subscription")
-        };
+            alert("로그인이 필요합니다!");
+            return history.push("/login");
+        }
+        if (user.userData.isAuth && !user.userData.isSubscribe) {
+            alert("구독 신청이 필요합니다!");
+            return history.push("/subscription");
+        }
 
         if (value.length >= 2) {
             setSelectDisable(false);
@@ -27,9 +28,28 @@ function SelectBooksPage(props) {
             setSelectDisable(true);
         }
 
-        {
-            /* 변경된 선택을 DB에 저장 */
-        }
+        setSelectedBookId(value);
+
+        const selected = value.map((bookId) => {
+            for (let i = 0; i < MonthlyBooks.length; i++) {
+                if (MonthlyBooks[i]._id === bookId) {
+                    return MonthlyBooks[i]
+                }
+            }
+        });
+
+        /* 변경된 선택을 DB에 저장 */
+        const body = {
+            id: user.userData._id,
+            email: user.userData.email,
+            selected: selected,
+        };
+
+        axios.post("/api/users/book-select", body).then((response) => {
+            if (!response.data.success) {
+                alert("상품 업로드 실패");
+            }
+        });
     };
 
     const focusHandler = () => {
@@ -48,7 +68,7 @@ function SelectBooksPage(props) {
             limit: 4,
         };
 
-        axios.post("/api/product/monthlyBooks", body).then((response) => {
+        axios.get("/api/product/monthlyBooks", body).then((response) => {
             if (response.data.success) {
                 setMonthlyBooks(response.data.monthlyBooksInfo);
             } else {
@@ -57,7 +77,19 @@ function SelectBooksPage(props) {
         });
     }, []);
 
-    const renderCards = monthlyBooks.map((book, index) => {
+    useEffect(() => {
+        axios.get("/api/users/book-select").then((response) => {
+            if (response.data.success) {
+                const selectedBook = response.data.selected;
+                const selectedBookId = selectedBook.map((book) => { return book._id });
+                setSelectedBookId(selectedBookId);
+            } else {
+                alert("상품을 가져오는데 실패했습니다.");
+            }
+        });
+    }, []);
+
+    const renderCards = MonthlyBooks.map((book, index) => {
         return (
             <Col lg={6} md={8} sm={10} xs={12} key={index}>
                 <a href={`/select-books/${book._id}`}>
@@ -66,6 +98,7 @@ function SelectBooksPage(props) {
                             <img
                                 style={{ width: "100%" }}
                                 src={`http://localhost:5000/${book.images[0]}`}
+                                alt={`${book.title}`}
                             />
                         }
                         hoverable={true}
@@ -81,8 +114,8 @@ function SelectBooksPage(props) {
     });
 
     const options = [];
-    monthlyBooks.map((product, index) => {
-        options.push(<Option key={index}>{product.title}</Option>);
+    MonthlyBooks.map((product, index) => {
+        options.push(<Option key={product._id}>{product.title}</Option>);
     });
 
     return (
@@ -97,6 +130,7 @@ function SelectBooksPage(props) {
                         size="large"
                         style={{ width: "100%" }}
                         placeholder="받고 싶은 책을 선택해주세요."
+                        value={SelectedBookId}
                         onChange={selectChangeHandler}
                         maxTagCount={2}
                         open={SelectDisable}
