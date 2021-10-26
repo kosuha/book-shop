@@ -13,6 +13,7 @@ import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import BookDetailPage from "./views/BookDetailPage/BookDetailPage";
+import ReleasePage from "./views/ReleasePage/ReleasePage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -64,8 +65,13 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/product/upload"
-                        component={Auth(UploadProductPage, true)}
+                        path="/admin/upload"
+                        component={Auth(UploadProductPage, true, true)}
+                    />
+                    <Route
+                        exact
+                        path="/admin/release"
+                        component={Auth(ReleasePage, true, true)}
                     />
                 </Switch>
             </div>
