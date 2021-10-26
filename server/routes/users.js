@@ -61,7 +61,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.get("/logout", auth, (req, res) => {
+router.put("/logout", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
@@ -70,7 +70,7 @@ router.get("/logout", auth, (req, res) => {
     });
 });
 
-router.get("/book-select", auth, (req, res) => {
+router.get("/book/selected", auth, (req, res) => {
     User.findOne({ _id: req.user._id }, (err, user) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
@@ -80,7 +80,7 @@ router.get("/book-select", auth, (req, res) => {
     })
 });
 
-router.post("/book-select", auth, (req, res) => {
+router.put("/book/selected", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, { selectedBook: req.body.selected }, (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({

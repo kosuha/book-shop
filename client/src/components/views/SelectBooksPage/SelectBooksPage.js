@@ -45,7 +45,7 @@ function SelectBooksPage(props) {
             selected: selected,
         };
 
-        axios.post("/api/users/book-select", body).then((response) => {
+        axios.put("/api/users/book/selected", body).then((response) => {
             if (!response.data.success) {
                 alert("상품 업로드 실패");
             }
@@ -78,7 +78,7 @@ function SelectBooksPage(props) {
     }, []);
 
     useEffect(() => {
-        axios.get("/api/users/book-select").then((response) => {
+        axios.get("/api/users/book/selected").then((response) => {
             if (response.data.success) {
                 const selectedBook = response.data.selected;
                 const selectedBookId = selectedBook.map((book) => { return book._id });
