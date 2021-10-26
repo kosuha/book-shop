@@ -19,7 +19,9 @@ router.get("/auth", auth, (req, res) => {
         isSubscribe: req.user.subscription,
         selectedBook: req.user.selectedBook,
         selectedBookHistory: req.user.selectedBookHistory,
-        paidHistory: req.user.paidHistory
+        paidHistory: req.user.paidHistory,
+        address: req.user.address,
+        phone: req.user.phone
     });
 });
 
@@ -85,6 +87,16 @@ router.put("/book/selected", auth, (req, res) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
             success: true
+        });
+    })
+});
+
+router.get("/user", auth, (req, res) => {
+    User.findOne({ _id: req.user._id }, (err, user) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true,
+            user
         });
     })
 });

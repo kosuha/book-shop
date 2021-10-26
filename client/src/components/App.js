@@ -14,6 +14,7 @@ import Footer from "./views/Footer/Footer";
 import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import BookDetailPage from "./views/BookDetailPage/BookDetailPage";
 import ReleasePage from "./views/ReleasePage/ReleasePage";
+import MyPage from "./views/MyPage/MyPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -38,21 +39,17 @@ function App() {
                         path="/select-books/:bookId"
                         component={Auth(BookDetailPage, null)}
                     />
-					<Route
+                    <Route
                         exact
                         path="/subscription"
                         component={Auth(SubscriptionPage, null)}
                     />
-					<Route
+                    <Route
                         exact
                         path="/brand-story"
                         component={Auth(BrandStoryPage, null)}
                     />
-					<Route
-                        exact
-                        path="/faq"
-                        component={Auth(FaqPage, null)}
-                    />
+                    <Route exact path="/faq" component={Auth(FaqPage, null)} />
                     <Route
                         exact
                         path="/login"
@@ -62,6 +59,11 @@ function App() {
                         exact
                         path="/register"
                         component={Auth(RegisterPage, false)}
+                    />
+                    <Route
+                        exact
+                        path="/my-page"
+                        component={Auth(MyPage, true)}
                     />
                     <Route
                         exact

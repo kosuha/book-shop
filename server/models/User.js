@@ -33,6 +33,14 @@ const userSchema = mongoose.Schema({
         type: Array,
         default: []
     },
+    address: {
+        type: String,
+        default: ""
+    },
+    phone: {
+        type: String,
+        default: ""
+    },
     selectedBookHistory: {
         type: Array,
         default: [[]]
