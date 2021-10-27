@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const DivCardContainer = styled.div`
     width: 75%;
+    max-width: 50rem;
     margin: 3rem auto;
 
     @media (max-width: 767px) {
-        width: 95%;
+        width: 80%;
         margin: 1rem auto;
     }
 `;
@@ -21,6 +22,7 @@ export const DivCard = styled.div`
     @media (max-width: 767px) {
         padding: 1rem;
         border-radius: 0.2rem;
+        margin-bottom: 1rem;
     }
 `;
 
