@@ -91,6 +91,15 @@ router.put("/book/selected", auth, (req, res) => {
     })
 });
 
+router.put("/user", auth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { name: req.body.name }, (err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });
+    })
+});
+
 router.get("/user", auth, (req, res) => {
     User.findOne({ _id: req.user._id }, (err, user) => {
         if (err) return res.json({ success: false, err });

@@ -5,8 +5,8 @@ export const DivCardContainer = styled.div`
     margin: 3rem auto;
 
     @media (max-width: 767px) {
-            width: 95%;
-            margin: 1rem auto;
+        width: 95%;
+        margin: 1rem auto;
     }
 `;
 
@@ -33,4 +33,14 @@ export const TitleContainer = styled.div`
 export const EditButton = styled.button`
     border: none;
     background-color: rgba(0, 0, 0, 0);
+`;
+
+export const NameInput = styled.input`
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 1.5em;
+    margin-bottom: 0.38em;
+    margin-left: 0;
+    margin-right: 0;
 `;
