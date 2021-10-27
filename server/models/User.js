@@ -33,6 +33,11 @@ const userSchema = mongoose.Schema({
         type: Array,
         default: []
     },
+    addressName: {
+        type: String,
+        default: "",
+        maxlength: 50,
+    },
     address: {
         type: String,
         default: ""
@@ -43,7 +48,7 @@ const userSchema = mongoose.Schema({
     },
     selectedBookHistory: {
         type: Array,
-        default: [[]]
+        default: []
     },
     token: {
         type: String,

@@ -11,6 +11,7 @@ export const DivCardContainer = styled.div`
 `;
 
 export const DivCard = styled.div`
+    margin-bottom: 2.5rem;
     padding: 2.5rem;
     border-radius: 0.5rem;
     box-shadow: 0.1rem 0.1rem 1rem 0rem rgb(0, 0, 0, 0.1);

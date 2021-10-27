@@ -141,8 +141,6 @@ function SelectBooksPage(props) {
                     </Select>
                 </div>
             </DivCard>
-            <br />
-            <br />
             <DivCard>
                 <div style={{ textAlign: "left" }}>
                     <h2 className="card-title">
