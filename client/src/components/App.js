@@ -15,6 +15,7 @@ import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import BookDetailPage from "./views/BookDetailPage/BookDetailPage";
 import ReleasePage from "./views/ReleasePage/ReleasePage";
 import MyPage from "./views/MyPage/MyPage";
+import PaymentPage from "./views/PaymentPage/PaymentPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -43,6 +44,11 @@ function App() {
                         exact
                         path="/subscription"
                         component={Auth(SubscriptionPage, null)}
+                    />
+                    <Route
+                        exact
+                        path="/subscription/payment/:plan"
+                        component={Auth(PaymentPage, true)}
                     />
                     <Route
                         exact
